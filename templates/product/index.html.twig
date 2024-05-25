@@ -3,6 +3,18 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
+    <form method="get">
+        <select name="category">
+            <option value="">All</option>
+            <option value="Category1">Category1</option>
+            <option value="Category2">Category2</option>
+        </select>
+        <select name="sort">
+            <option value="ASC">Ascending</option>
+            <option value="DESC">Descending</option>
+        </select>
+        <button type="submit">Filter</button>
+    </form>
     <h1>Product index</h1>
 
     <table class="table">
