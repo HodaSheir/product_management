@@ -3,11 +3,16 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
+    <div>
+        <a href="{{ path('import') }}"> Import files</a>
+    </div>    
+
     <form method="get">
         <select name="category">
             <option value="">All</option>
-            <option value="Category1">Category1</option>
-            <option value="Category2">Category2</option>
+            <option value="clothes">clothes</option>
+            <option value="food">food</option>
+            <option value="home appliances">home appliances </option>
         </select>
         <select name="sort">
             <option value="ASC">Ascending</option>
@@ -29,7 +34,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for product in products %}
+        {% for product in pagination  %}
             <tr>
                 <td>{{ product.id }}</td>
                 <td>{{ product.title }}</td>
@@ -48,6 +53,8 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 
-    <a href="{{ path('app_product_new') }}">Create new</a>
 {% endblock %}

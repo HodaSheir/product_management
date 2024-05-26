@@ -7,3 +7,6 @@ controllers:
 product_index:
     path: /products
     controller: App\Controller\ProductController::index
+import:
+    path: /import
+    controller: App\Controller\ImportController::import

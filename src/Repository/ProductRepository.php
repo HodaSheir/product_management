@@ -16,7 +16,7 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function findByFilters($category, $sort)
+    public function findByFiltersQueryBuilder($category, $sort)
     {
         $qb = $this->createQueryBuilder('p');
 
@@ -25,10 +25,8 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter('category', $category);
         }
 
-        if ($sort) {
-            $qb->orderBy('p.title', $sort);
-        }
+        $qb->orderBy('p.title', $sort);
 
-        return $qb->getQuery()->getResult();
+        return $qb;
     }
 }

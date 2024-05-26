@@ -10,20 +10,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/product')]
 class ProductController extends AbstractController
 {
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
-    public function index(ProductRepository $productRepository, Request $request): Response
+    public function index(ProductRepository $productRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $category = $request->query->get('category');
         $sort = $request->query->get('sort', 'ASC');
 
-        $products = $productRepository->findByFilters($category, $sort);
+        $queryBuilder = $productRepository->findByFiltersQueryBuilder($category, $sort);
+
+        // Paginate the results of the query
+        $pagination = $paginator->paginate(
+            $queryBuilder, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            100 /*limit per page*/
+        );
 
         return $this->render('product/index.html.twig', [
-            'products' => $products,
+            'pagination' => $pagination,
         ]);
     }
 

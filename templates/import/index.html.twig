@@ -1,0 +1,12 @@
+{# templates/import/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Import Products{% endblock %}
+
+{% block body %}
+<form method="post" enctype="multipart/form-data">
+    <input type="file" name="import_file" required>
+    <button type="submit">Import</button>
+</form>
+
+{% endblock %}
